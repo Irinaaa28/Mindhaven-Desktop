@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class MainApplication extends Application {
     private static Stage primaryStage;
+    public static final ApiClient apiClient = new ApiClient();
 
     @Override
     public void start(Stage stage) throws Exception {
