@@ -1,5 +1,7 @@
-package com.irina.mindhaven.mindhavendesktop;
+package com.irina.mindhaven.mindhavendesktop.controllers;
 
+import com.irina.mindhaven.mindhavendesktop.services.ApiClient;
+import com.irina.mindhaven.mindhavendesktop.MainApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -8,7 +10,6 @@ import javafx.scene.control.TextField;
 public class AuthenticationController {
     @FXML
     private TextField emailField;
-
     @FXML
     private PasswordField passwordField;
 
@@ -20,7 +21,10 @@ public class AuthenticationController {
         String password = passwordField.getText();
 
         System.out.println("Authenticate: " + email);
-
+        if (email.isEmpty() || password.isEmpty()) {
+            showAlert("Error", "Email and password are required");
+            return;
+        }
         try {
             boolean success = apiClient.authenticate(email, password);
             if (success)
@@ -28,33 +32,18 @@ public class AuthenticationController {
             else
                 showAlert("Login failed", "Invalid credentials");
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void goToAuthenticate() throws Exception {
-        MainApplication.showAuthenticate();
-    }
-
-    @FXML
-    private void handleRegister() throws Exception {
-        MainApplication.showAuthenticate();
-    }
-
-    @FXML
-    private void handleLogout() throws Exception {
-        try {
-            apiClient.logout();
-            MainApplication.showAuthenticate();
-        } catch (Exception e) {
-            e.printStackTrace();
+            showAlert("Error", e.getMessage());
         }
     }
 
     @FXML
     private void goToRegister() throws Exception {
         MainApplication.showRegister();
+    }
+
+    @FXML
+    private void goToForgotPassword() throws Exception {
+        MainApplication.showForgotPassword();
     }
 
     private void showAlert(String title, String message) {

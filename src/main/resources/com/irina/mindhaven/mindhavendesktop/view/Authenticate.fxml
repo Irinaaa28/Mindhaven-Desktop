@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Button?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.irina.mindhaven.mindhavendesktop.controllers.AuthenticationController">
+
+    <Label text="Authenticate" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+
+    <TextField fx:id="emailField" promptText="Email" prefWidth="250"/>
+    <PasswordField fx:id="passwordField" promptText="Password" prefWidth="250"/>
+
+    <Button text="Authenticate" prefWidth="200" onAction="#handleAuthenticate"/>
+    <Button text="Forgot Your Password?" prefWidth="200" onAction="#goToForgotPassword"/>
+    <Button text="Register" prefWidth="200" onAction="#goToRegister"/>
+
+</VBox>

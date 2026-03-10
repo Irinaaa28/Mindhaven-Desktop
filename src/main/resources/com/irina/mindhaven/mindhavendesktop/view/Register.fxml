@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Button?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.irina.mindhaven.mindhavendesktop.controllers.RegisterController">
+
+    <Label text="Register" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="firstNameField" promptText="First Name" prefWidth="250" />
+    <TextField fx:id="lastNameField" promptText="Last Name" prefWidth="250" />
+    <TextField fx:id="emailField" promptText="Email" prefWidth="250"/>
+    <PasswordField fx:id="passwordField" promptText="Password" prefWidth="250"/>
+    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" prefWidth="250" />
+
+    <Label fx:id="errorLabel" style="-fx-text-fill: red;" />
+    <Button text="Register" prefWidth="200" onAction="#register"/>
+    <Button text="Back to authenticate" prefWidth="200" onAction="#goToAuthenticate"/>
+
+</VBox>
