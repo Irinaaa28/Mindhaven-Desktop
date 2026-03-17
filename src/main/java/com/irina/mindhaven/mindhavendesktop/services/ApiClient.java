@@ -25,7 +25,7 @@ public class ApiClient {
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
-        client = HttpClient.newBuilder().followRedirects(Redirect.ALWAYS)
+        client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS)
                 .cookieHandler(cookieManager).build();
     }
 
@@ -57,6 +57,8 @@ public class ApiClient {
                                         .POST(HttpRequest.BodyPublishers.ofString(form))
                                         .build();
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+        System.out.println(response.headers());
+        System.out.println(response.body());
         String finalUrl = response.uri().toString();
         if (finalUrl.contains("error=true"))
             return false;
@@ -91,10 +93,12 @@ public class ApiClient {
     }
 
     public List<UserDTO> getUsers() throws IOException, InterruptedException {
+        System.out.println("Requesting users...");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + "/api/users"))
                 .GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println("Response body: " + response.body());
         return mapper.readValue(response.body(),
                 new TypeReference<List<UserDTO>>() {});
     }
@@ -106,5 +110,14 @@ public class ApiClient {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         return mapper.readValue(response.body(),
                 new TypeReference<List<LogDTO>>() {});
+    }
+
+    public UserDTO getCurrentUser() throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/api/me"))
+                .GET().build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return mapper.readValue(response.body(), UserDTO.class
+        );
     }
 }

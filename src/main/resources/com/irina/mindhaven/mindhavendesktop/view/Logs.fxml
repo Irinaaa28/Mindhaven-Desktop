@@ -13,11 +13,12 @@
 
     <TableView fx:id="logsTable" prefHeight="300" prefWidth="500">
         <columns>
-            <TableColumn text="ID" prefWidth="150" />
-            <TableColumn text="Action" prefWidth="150" />
-            <TableColumn text="IP Address" prefWidth="150" />
-            <TableColumn text="User Agent" prefWidth="150" />
-            <TableColumn text="Timestamp" prefWidth="150" />
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="150" />
+            <TableColumn fx:id="emailColumn" text="Email" prefWidth="150" />
+            <TableColumn fx:id="actionColumn" text="Action" prefWidth="150" />
+            <TableColumn fx:id="ipColumn" text="IP Address" prefWidth="150" />
+            <TableColumn fx:id="userAgentColumn" text="User Agent" prefWidth="150" />
+            <TableColumn fx:id="timestampColumn" text="Timestamp" prefWidth="150" />
         </columns>
     </TableView>
 

@@ -2,6 +2,7 @@ package com.irina.mindhaven.mindhavendesktop.models;
 
 public class LogDTO {
     private Long id;
+    private String email;
     private String action;
     private String ipAddress;
     private String userAgent;
@@ -13,6 +14,8 @@ public class LogDTO {
     public void setId(Long id) {
         this.id = id;
     }
+    public String getEmail() { return email;}
+    public void setEmail(String email) { this.email = email; }
     public String getAction() {
         return action;
     }

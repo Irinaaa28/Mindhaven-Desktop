@@ -13,11 +13,11 @@
 
     <TableView fx:id="usersTable" prefHeight="300" prefWidth="500">
         <columns>
-            <TableColumn text="UUID" prefWidth="150" />
-            <TableColumn text="First Name" prefWidth="150" />
-            <TableColumn text="Last Name" prefWidth="150" />
-            <TableColumn text="Email" prefWidth="150" />
-            <TableColumn text="Role" prefWidth="150" />
+            <TableColumn fx:id="uuidColumn" text="UUID" prefWidth="150" />
+            <TableColumn fx:id="firstnameColumn" text="First Name" prefWidth="150" />
+            <TableColumn fx:id="lastnameColumn" text="Last Name" prefWidth="150" />
+            <TableColumn fx:id="emailColumn" text="Email" prefWidth="150" />
+            <TableColumn fx:id="roleColumn" text="Role" prefWidth="150" />
         </columns>
     </TableView>
 
