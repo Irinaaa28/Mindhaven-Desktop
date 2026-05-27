@@ -5,6 +5,8 @@ module com.irina.mindhaven.mindhavendesktop {
     requires java.desktop;
     requires jdk.jfr;
     requires com.fasterxml.jackson.databind;
+    requires com.sun.jna.platform;
+    requires com.sun.jna;
 
 
     opens com.irina.mindhaven.mindhavendesktop to javafx.fxml;

@@ -9,11 +9,13 @@ import java.util.concurrent.TimeUnit;
 
 public class ActivityScheduler {
 
+    //create a separate thread for monitoring
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final ActivityMonitorService monitor = new ActivityMonitorService();
     private final ActivitySenderService sender = new ActivitySenderService();
 
     public void start() {
+        // execute the code periodically
         scheduler.scheduleAtFixedRate(() -> {
             ActivityEvent event = monitor.collectActivity();
             sender.send(event);
