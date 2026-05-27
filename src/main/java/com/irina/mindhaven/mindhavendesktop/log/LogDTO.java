@@ -1,4 +1,4 @@
-package com.irina.mindhaven.mindhavendesktop.models;
+package com.irina.mindhaven.mindhavendesktop.log;
 
 public class LogDTO {
     private Long id;

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Button?>
 
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.irina.mindhaven.mindhavendesktop.controllers.DashboardController">
+      fx:controller="com.irina.mindhaven.mindhavendesktop.home.DashboardController">
 
     <Label text="Dashboard" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
 

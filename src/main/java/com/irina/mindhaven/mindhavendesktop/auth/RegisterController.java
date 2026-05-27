@@ -1,13 +1,11 @@
-package com.irina.mindhaven.mindhavendesktop.controllers;
+package com.irina.mindhaven.mindhavendesktop.auth;
 
 import com.irina.mindhaven.mindhavendesktop.MainApplication;
-import com.irina.mindhaven.mindhavendesktop.services.ApiClient;
+import com.irina.mindhaven.mindhavendesktop.api.ApiClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import static com.irina.mindhaven.mindhavendesktop.MainApplication.apiClient;
 
 public class RegisterController {
     @FXML

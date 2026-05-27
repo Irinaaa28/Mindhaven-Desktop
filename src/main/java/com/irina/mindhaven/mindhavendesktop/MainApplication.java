@@ -1,6 +1,7 @@
 package com.irina.mindhaven.mindhavendesktop;
 
-import com.irina.mindhaven.mindhavendesktop.services.ApiClient;
+import com.irina.mindhaven.mindhavendesktop.api.ApiClient;
+import com.irina.mindhaven.mindhavendesktop.monitoring.ActivityScheduler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +10,7 @@ import javafx.stage.Stage;
 public class MainApplication extends Application {
     private static Stage primaryStage;
     public static final ApiClient apiClient = new ApiClient();
+    private static ActivityScheduler activityScheduler;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -17,6 +19,10 @@ public class MainApplication extends Application {
         primaryStage.setHeight(400);
         primaryStage.setMinWidth(400);
         primaryStage.setMinHeight(300);
+
+        activityScheduler = new ActivityScheduler();
+        activityScheduler.start();
+
         showHome();
     }
 

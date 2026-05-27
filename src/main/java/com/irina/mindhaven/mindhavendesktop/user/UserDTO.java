@@ -1,4 +1,4 @@
-package com.irina.mindhaven.mindhavendesktop.models;
+package com.irina.mindhaven.mindhavendesktop.user;
 
 public class UserDTO {
     private String uuid;

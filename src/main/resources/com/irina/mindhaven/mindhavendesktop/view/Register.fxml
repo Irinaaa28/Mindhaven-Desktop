@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Button?>
 
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.irina.mindhaven.mindhavendesktop.controllers.RegisterController">
+      fx:controller="com.irina.mindhaven.mindhavendesktop.auth.RegisterController">
 
     <Label text="Register" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
 

@@ -1,7 +1,7 @@
-package com.irina.mindhaven.mindhavendesktop.controllers;
+package com.irina.mindhaven.mindhavendesktop.home;
 
-import com.irina.mindhaven.mindhavendesktop.models.UserDTO;
-import com.irina.mindhaven.mindhavendesktop.services.ApiClient;
+import com.irina.mindhaven.mindhavendesktop.user.UserDTO;
+import com.irina.mindhaven.mindhavendesktop.api.ApiClient;
 import com.irina.mindhaven.mindhavendesktop.MainApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

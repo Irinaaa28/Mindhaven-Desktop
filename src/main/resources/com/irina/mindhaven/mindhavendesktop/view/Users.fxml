@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.irina.mindhaven.mindhavendesktop.controllers.UsersController">
+      fx:controller="com.irina.mindhaven.mindhavendesktop.user.UsersController">
 
     <Label text="Users" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
 

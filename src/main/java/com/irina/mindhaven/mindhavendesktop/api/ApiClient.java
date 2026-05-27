@@ -1,15 +1,14 @@
-package com.irina.mindhaven.mindhavendesktop.services;
+package com.irina.mindhaven.mindhavendesktop.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.irina.mindhaven.mindhavendesktop.models.LogDTO;
-import com.irina.mindhaven.mindhavendesktop.models.UserDTO;
+import com.irina.mindhaven.mindhavendesktop.log.LogDTO;
+import com.irina.mindhaven.mindhavendesktop.user.UserDTO;
 
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.URI;
-import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;

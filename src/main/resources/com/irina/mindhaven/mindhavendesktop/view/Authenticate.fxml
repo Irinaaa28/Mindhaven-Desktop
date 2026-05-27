@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Button?>
 
 <VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.irina.mindhaven.mindhavendesktop.controllers.AuthenticationController">
+      fx:controller="com.irina.mindhaven.mindhavendesktop.auth.AuthenticationController">
 
     <Label text="Authenticate" style="-fx-font-size: 22px; -fx-font-weight: bold;" />
 

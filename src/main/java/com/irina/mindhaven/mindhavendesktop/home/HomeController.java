@@ -1,4 +1,4 @@
-package com.irina.mindhaven.mindhavendesktop.controllers;
+package com.irina.mindhaven.mindhavendesktop.home;
 
 import com.irina.mindhaven.mindhavendesktop.MainApplication;
 import javafx.fxml.FXML;
