@@ -18,7 +18,8 @@ public class ActivityScheduler {
         // execute the code periodically
         scheduler.scheduleAtFixedRate(() -> {
             ActivityEvent event = monitor.collectActivity();
-            sender.send(event);
+            if (event != null)
+                sender.send(event);
         }, 0, 5, TimeUnit.SECONDS);
     }
 

@@ -5,14 +5,16 @@ import java.time.LocalDateTime;
 public class ActivityEvent {
 
     private String applicationName;
-    private LocalDateTime timestamp;
-    private int durationSeconds;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private long durationSeconds;
 
     public ActivityEvent() {}
 
-    public ActivityEvent(String applicationName, LocalDateTime timestamp, int durationSeconds) {
+    public ActivityEvent(String applicationName, LocalDateTime startTime,LocalDateTime endTime, long durationSeconds) {
         this.applicationName = applicationName;
-        this.timestamp = timestamp;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.durationSeconds = durationSeconds;
     }
 
@@ -22,16 +24,22 @@ public class ActivityEvent {
     public void setApplicationName(String applicationName) {
         this.applicationName = applicationName;
     }
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
-    public int getDurationSeconds() {
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+    public long getDurationSeconds() {
         return durationSeconds;
     }
-    public void setDurationSeconds(int durationSeconds) {
+    public void setDurationSeconds(long durationSeconds) {
         this.durationSeconds = durationSeconds;
     }
 }
