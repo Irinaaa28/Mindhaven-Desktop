@@ -2,6 +2,8 @@ package com.irina.mindhaven.mindhavendesktop.api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.irina.mindhaven.mindhavendesktop.activity.ActivityEvent;
 import com.irina.mindhaven.mindhavendesktop.log.LogDTO;
 import com.irina.mindhaven.mindhavendesktop.user.UserDTO;
 
@@ -28,6 +30,7 @@ public class ApiClient {
                 .cookieHandler(cookieManager).build();
     }
 
+    // REGISTER + AUTH + LOGOUT
     public boolean register(String firstname, String lastname,
                             String email, String password,
                             String confirmPassword)
@@ -81,6 +84,7 @@ public class ApiClient {
         client.send(request, BodyHandlers.ofString());
     }
 
+    // PASSWORD
     public void forgotPassword(String email) throws IOException, InterruptedException {
         String form = "email=" + email;
         HttpRequest request = HttpRequest.newBuilder()
@@ -91,6 +95,7 @@ public class ApiClient {
         client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
+    // USERS
     public List<UserDTO> getUsers() throws IOException, InterruptedException {
         System.out.println("Requesting users...");
         HttpRequest request = HttpRequest.newBuilder()
@@ -102,6 +107,16 @@ public class ApiClient {
                 new TypeReference<List<UserDTO>>() {});
     }
 
+    public UserDTO getCurrentUser() throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/api/me"))
+                .GET().build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return mapper.readValue(response.body(), UserDTO.class
+        );
+    }
+
+    // LOGS
     public List<LogDTO> getLogs() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + "/api/logs"))
@@ -111,12 +126,14 @@ public class ApiClient {
                 new TypeReference<List<LogDTO>>() {});
     }
 
-    public UserDTO getCurrentUser() throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL + "/api/me"))
-                .GET().build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        return mapper.readValue(response.body(), UserDTO.class
-        );
+    // ACTIVITY
+    public void sendActivity(ActivityEvent event) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        String json = mapper.writeValueAsString(event);
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_URL + "/api/activity"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json)).build();
+        client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 }

@@ -7,6 +7,7 @@ module com.irina.mindhaven.mindhavendesktop {
     requires com.fasterxml.jackson.databind;
     requires com.sun.jna.platform;
     requires com.sun.jna;
+    requires com.fasterxml.jackson.datatype.jsr310;
 
 
     opens com.irina.mindhaven.mindhavendesktop to javafx.fxml;
@@ -22,4 +23,5 @@ module com.irina.mindhaven.mindhavendesktop {
     exports com.irina.mindhaven.mindhavendesktop.user;
     opens com.irina.mindhaven.mindhavendesktop.user to com.fasterxml.jackson.databind, javafx.base, javafx.fxml;
     opens com.irina.mindhaven.mindhavendesktop.log to com.fasterxml.jackson.databind, javafx.base, javafx.fxml;
+    opens com.irina.mindhaven.mindhavendesktop.activity to com.fasterxml.jackson.databind;
 }

@@ -9,8 +9,6 @@ public class ActivityEvent {
     private LocalDateTime endTime;
     private long durationSeconds;
 
-    public ActivityEvent() {}
-
     public ActivityEvent(String applicationName, LocalDateTime startTime,LocalDateTime endTime, long durationSeconds) {
         this.applicationName = applicationName;
         this.startTime = startTime;
