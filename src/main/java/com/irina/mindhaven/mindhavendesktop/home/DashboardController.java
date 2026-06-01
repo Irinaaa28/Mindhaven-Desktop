@@ -1,5 +1,6 @@
 package com.irina.mindhaven.mindhavendesktop.home;
 
+import com.irina.mindhaven.mindhavendesktop.session.SessionContext;
 import com.irina.mindhaven.mindhavendesktop.user.UserDTO;
 import com.irina.mindhaven.mindhavendesktop.api.ApiClient;
 import com.irina.mindhaven.mindhavendesktop.MainApplication;
@@ -22,9 +23,8 @@ public class DashboardController {
     @FXML
     private void initialize() {
         try {
-//            String data = apiClient.getDashboardData();
             UserDTO user = apiClient.getCurrentUser();
-            // System.out.println(data);
+            SessionContext.setUserUuid(user.getUuid());
             if (!user.getRole().equals("ADMIN")) {
                 usersButton.setVisible(false);
                 logsButton.setVisible(false);

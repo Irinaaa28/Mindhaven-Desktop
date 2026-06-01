@@ -4,18 +4,27 @@ import java.time.LocalDateTime;
 
 public class ActivityEvent {
 
+    private String userUuid;
     private String applicationName;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private long durationSeconds;
 
-    public ActivityEvent(String applicationName, LocalDateTime startTime,LocalDateTime endTime, long durationSeconds) {
+    public ActivityEvent(String userUuid, String applicationName, LocalDateTime startTime,LocalDateTime endTime, long durationSeconds) {
+        this.userUuid = userUuid;
         this.applicationName = applicationName;
         this.startTime = startTime;
         this.endTime = endTime;
         this.durationSeconds = durationSeconds;
     }
 
+    public String getUserUuid() {
+        return userUuid;
+    }
+
+    public void setUserUuid(String userUuid) {
+        this.userUuid = userUuid;
+    }
     public String getApplicationName() {
         return applicationName;
     }
