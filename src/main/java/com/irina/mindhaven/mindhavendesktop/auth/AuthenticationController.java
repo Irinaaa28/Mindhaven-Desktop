@@ -2,6 +2,7 @@ package com.irina.mindhaven.mindhavendesktop.auth;
 
 import com.irina.mindhaven.mindhavendesktop.api.ApiClient;
 import com.irina.mindhaven.mindhavendesktop.MainApplication;
+import com.irina.mindhaven.mindhavendesktop.session.LocalSessionServer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
@@ -27,8 +28,11 @@ public class AuthenticationController {
         }
         try {
             boolean success = apiClient.authenticate(email, password);
-            if (success)
+            if (success) {
+                LocalSessionServer server = new LocalSessionServer();
+                server.start();
                 MainApplication.showDashboard();
+            }
             else
                 showAlert("Login failed", "Invalid credentials");
         } catch (Exception e) {

@@ -8,6 +8,7 @@ module com.irina.mindhaven.mindhavendesktop {
     requires com.sun.jna.platform;
     requires com.sun.jna;
     requires com.fasterxml.jackson.datatype.jsr310;
+    requires jdk.httpserver;
 
 
     opens com.irina.mindhaven.mindhavendesktop to javafx.fxml;

@@ -16,6 +16,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.net.http.HttpResponse;
 import java.util.List;
+
 public class ApiClient {
 
     private static final String BASE_URL = "http://localhost:8080";
@@ -81,7 +82,8 @@ public class ApiClient {
         HttpRequest request = HttpRequest.newBuilder()
                                         .uri(URI.create(BASE_URL + "/api/v1/auth/logout"))
                                         .POST(HttpRequest.BodyPublishers.noBody()).build();
-        client.send(request, BodyHandlers.ofString());
+        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+        System.out.println(response.body());
     }
 
     // PASSWORD
@@ -112,6 +114,8 @@ public class ApiClient {
                 .uri(URI.create(BASE_URL + "/api/me"))
                 .GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println("STATUS = " + response.statusCode());
+        System.out.println("BODY = " + response.body());
         return mapper.readValue(response.body(), UserDTO.class
         );
     }
