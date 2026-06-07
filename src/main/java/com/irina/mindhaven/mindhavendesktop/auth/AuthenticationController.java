@@ -20,8 +20,6 @@ public class AuthenticationController {
     private void handleAuthenticate() {
         String email = emailField.getText();
         String password = passwordField.getText();
-
-        System.out.println("Authenticate: " + email);
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Error", "Email and password are required");
             return;

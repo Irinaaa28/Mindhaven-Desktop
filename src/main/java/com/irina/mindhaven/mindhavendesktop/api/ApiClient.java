@@ -60,22 +60,12 @@ public class ApiClient {
                                         .POST(HttpRequest.BodyPublishers.ofString(form))
                                         .build();
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-        System.out.println(response.headers());
-        System.out.println(response.body());
         String finalUrl = response.uri().toString();
         if (finalUrl.contains("error=true"))
             return false;
         if (finalUrl.contains("lock=true"))
             throw new RuntimeException("Account locked");
         return response.statusCode() == 200 || response.statusCode() == 302;
-    }
-
-    public String getDashboardData() throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                                        .uri(URI.create(BASE_URL + "/users/showall"))
-                                        .GET().build();
-        HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-        return response.body();
     }
 
     public void logout() throws IOException, InterruptedException {
@@ -99,12 +89,10 @@ public class ApiClient {
 
     // USERS
     public List<UserDTO> getUsers() throws IOException, InterruptedException {
-        System.out.println("Requesting users...");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + "/api/users"))
                 .GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println("Response body: " + response.body());
         return mapper.readValue(response.body(),
                 new TypeReference<List<UserDTO>>() {});
     }
@@ -114,8 +102,6 @@ public class ApiClient {
                 .uri(URI.create(BASE_URL + "/api/me"))
                 .GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println("STATUS = " + response.statusCode());
-        System.out.println("BODY = " + response.body());
         return mapper.readValue(response.body(), UserDTO.class
         );
     }
