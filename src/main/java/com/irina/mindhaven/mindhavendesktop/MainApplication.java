@@ -11,7 +11,6 @@ public class MainApplication extends Application {
     private static Stage primaryStage;
     public static final ApiClient apiClient = new ApiClient();
     private static ActivityScheduler activityScheduler;
-
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
@@ -21,8 +20,6 @@ public class MainApplication extends Application {
         primaryStage.setMinHeight(300);
 
         activityScheduler = new ActivityScheduler();
-        activityScheduler.start();
-
         showHome();
     }
 
@@ -78,5 +75,15 @@ public class MainApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static void showRateLimit() throws Exception {
+        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("/com/irina/mindhaven/mindhavendesktop/view/rate-limit.fxml"));
+        Scene scene = new Scene(loader.load());
+        primaryStage.setScene(scene);
+    }
+
+    public static ActivityScheduler getActivityScheduler() {
+        return activityScheduler;
     }
 }

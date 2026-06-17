@@ -3,7 +3,6 @@ package com.irina.mindhaven.mindhavendesktop.activity;
 import java.time.LocalDateTime;
 
 public class ActivityEvent {
-
     private String userUuid;
     private String applicationName;
     private LocalDateTime startTime;
@@ -18,35 +17,14 @@ public class ActivityEvent {
         this.durationSeconds = durationSeconds;
     }
 
-    public String getUserUuid() {
-        return userUuid;
-    }
-
-    public void setUserUuid(String userUuid) {
-        this.userUuid = userUuid;
-    }
-    public String getApplicationName() {
-        return applicationName;
-    }
-    public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName;
-    }
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-    public long getDurationSeconds() {
-        return durationSeconds;
-    }
-    public void setDurationSeconds(long durationSeconds) {
-        this.durationSeconds = durationSeconds;
-    }
+    public String getUserUuid() { return userUuid; }
+    public void setUserUuid(String userUuid) { this.userUuid = userUuid; }
+    public String getApplicationName() { return applicationName; }
+    public void setApplicationName(String applicationName) { this.applicationName = applicationName; }
+    public LocalDateTime getStartTime() { return startTime; }
+    public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
+    public LocalDateTime getEndTime() { return endTime; }
+    public void setEndTime(LocalDateTime endTime) { this.endTime = endTime; }
+    public long getDurationSeconds() { return durationSeconds; }
+    public void setDurationSeconds(long durationSeconds) { this.durationSeconds = durationSeconds; }
 }

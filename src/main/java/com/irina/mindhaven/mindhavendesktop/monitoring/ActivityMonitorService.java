@@ -14,4 +14,8 @@ public class ActivityMonitorService {
         System.out.println("Active app: " + filename);
         return usageTracker.track(filename);
     }
+
+    public ActiveWindowTracker getTracker() {
+        return tracker;
+    }
 }

@@ -3,8 +3,12 @@ package com.irina.mindhaven.mindhavendesktop.api;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.irina.mindhaven.mindhavendesktop.MainApplication;
 import com.irina.mindhaven.mindhavendesktop.activity.ActivityEvent;
+import com.irina.mindhaven.mindhavendesktop.auth.AccountLockedException;
 import com.irina.mindhaven.mindhavendesktop.log.LogDTO;
+import com.irina.mindhaven.mindhavendesktop.rule.RuleDTO;
+import com.irina.mindhaven.mindhavendesktop.rule.RuleDecision;
 import com.irina.mindhaven.mindhavendesktop.user.UserDTO;
 
 import java.io.IOException;
@@ -15,6 +19,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ApiClient {
@@ -49,6 +54,7 @@ public class ApiClient {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        //verifyRateLimit(response);
         return response.statusCode() == 200 || response.statusCode() == 302;
     }
 
@@ -63,8 +69,23 @@ public class ApiClient {
         String finalUrl = response.uri().toString();
         if (finalUrl.contains("error=true"))
             return false;
-        if (finalUrl.contains("lock=true"))
-            throw new RuntimeException("Account locked");
+        if (finalUrl.contains("lock=true")) {
+            URI uri = response.uri();
+            String query = uri.getQuery();
+            long ttl = 0;
+            if (query != null) {
+                for (String param : query.split("&")) {
+                    String[] parts = param.split("=");
+
+                    if (parts.length == 2 && parts[0].equals("ttl")) {
+                        ttl = Long.parseLong(parts[1]);
+                        break;
+                    }
+                }
+            }
+            throw new AccountLockedException(ttl);
+        }
+        //verifyRateLimit(response);
         return response.statusCode() == 200 || response.statusCode() == 302;
     }
 
@@ -74,6 +95,7 @@ public class ApiClient {
                                         .POST(HttpRequest.BodyPublishers.noBody()).build();
         HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
         System.out.println(response.body());
+        //verifyRateLimit(response);
     }
 
     // PASSWORD
@@ -84,7 +106,8 @@ public class ApiClient {
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(form))
                 .build();
-        client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        //verifyRateLimit(response);
     }
 
     // USERS
@@ -93,6 +116,7 @@ public class ApiClient {
                 .uri(URI.create(BASE_URL + "/api/users"))
                 .GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        //verifyRateLimit(response);
         return mapper.readValue(response.body(),
                 new TypeReference<List<UserDTO>>() {});
     }
@@ -102,6 +126,7 @@ public class ApiClient {
                 .uri(URI.create(BASE_URL + "/api/me"))
                 .GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        //verifyRateLimit(response);
         return mapper.readValue(response.body(), UserDTO.class
         );
     }
@@ -112,18 +137,43 @@ public class ApiClient {
                 .uri(URI.create(BASE_URL + "/api/logs"))
                 .GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        //verifyRateLimit(response);
         return mapper.readValue(response.body(),
                 new TypeReference<List<LogDTO>>() {});
     }
 
     // ACTIVITY
-    public void sendActivity(ActivityEvent event) throws Exception {
+    public RuleDecision sendActivity(ActivityEvent event) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         String json = mapper.writeValueAsString(event);
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_URL + "/api/activity"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json)).build();
-        client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return mapper.readValue(response.body(),  RuleDecision.class);
+        //verifyRateLimit(response);
+    }
+
+    // RULE
+//    public List<RuleDTO> getRulesByUser(String userUuid) throws Exception {
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create(BASE_URL + "/rules/" + userUuid))
+//                .GET().build();
+//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//        if (response.statusCode() == 200)
+//            return mapper.readValue(response.body(), new TypeReference<List<RuleDTO>>() {});
+//        return new ArrayList<>();
+//    }
+
+    private void verifyRateLimit(HttpResponse<?> response) {
+        try {
+            if (response.statusCode() == 429) {
+                System.out.println("RATE LIMIT CATCH");
+                MainApplication.showRateLimit();
+            }
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
     }
 }

@@ -12,8 +12,11 @@
 
     <TextField fx:id="emailField" promptText="Email" prefWidth="250"/>
     <PasswordField fx:id="passwordField" promptText="Password" prefWidth="250"/>
+    <Label fx:id="lockLabel"
+           visible="false"
+           style="-fx-text-fill:red;" />
 
-    <Button text="Authenticate" prefWidth="200" onAction="#handleAuthenticate"/>
+    <Button fx:id="loginButton" text="Authenticate" prefWidth="200" onAction="#handleAuthenticate"/>
     <Button text="Forgot Your Password?" prefWidth="200" onAction="#goToForgotPassword"/>
     <Button text="Register" prefWidth="200" onAction="#goToRegister"/>
 

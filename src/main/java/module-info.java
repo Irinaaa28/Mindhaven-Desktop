@@ -12,7 +12,6 @@ module com.irina.mindhaven.mindhavendesktop {
 
 
     opens com.irina.mindhaven.mindhavendesktop to javafx.fxml;
-//    opens com.irina.mindhaven.mindhavendesktop.models to javafx.base;
     exports com.irina.mindhaven.mindhavendesktop;
     exports com.irina.mindhaven.mindhavendesktop.home;
     opens com.irina.mindhaven.mindhavendesktop.home to javafx.fxml;
@@ -25,4 +24,7 @@ module com.irina.mindhaven.mindhavendesktop {
     opens com.irina.mindhaven.mindhavendesktop.user to com.fasterxml.jackson.databind, javafx.base, javafx.fxml;
     opens com.irina.mindhaven.mindhavendesktop.log to com.fasterxml.jackson.databind, javafx.base, javafx.fxml;
     opens com.irina.mindhaven.mindhavendesktop.activity to com.fasterxml.jackson.databind;
+    exports com.irina.mindhaven.mindhavendesktop.ratelimit;
+    opens com.irina.mindhaven.mindhavendesktop.ratelimit to javafx.fxml;
+    opens com.irina.mindhaven.mindhavendesktop.rule to com.fasterxml.jackson.databind;
 }
