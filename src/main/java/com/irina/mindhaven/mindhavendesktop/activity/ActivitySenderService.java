@@ -15,7 +15,7 @@ public class ActivitySenderService {
         try {
             RuleDecision decision = apiClient.sendActivity(event);
             if (decision != null && decision.isBlocked()) {
-                if (event.getDurationSeconds() == 0 || event.getDurationSeconds() > 3)
+                if (event.getDurationSeconds() == 0 || event.getDurationSeconds() >= 2)
                     Platform.runLater(() -> {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("MindHaven - Active Restriction");
