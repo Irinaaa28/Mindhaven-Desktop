@@ -29,4 +29,11 @@ public class LocalSessionServer {
             os.write(response.getBytes());
         }
     }
+
+    public void stop() {
+        if (server != null) {
+            server.stop(0);
+            System.out.println("Local session server stopped successfully");
+        }
+    }
 }

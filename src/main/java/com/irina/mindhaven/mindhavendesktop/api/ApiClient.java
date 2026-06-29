@@ -156,15 +156,43 @@ public class ApiClient {
     }
 
     // RULE
-//    public List<RuleDTO> getRulesByUser(String userUuid) throws Exception {
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(BASE_URL + "/rules/" + userUuid))
-//                .GET().build();
-//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        if (response.statusCode() == 200)
-//            return mapper.readValue(response.body(), new TypeReference<List<RuleDTO>>() {});
-//        return new ArrayList<>();
-//    }
+    public RuleDTO createRule(RuleDTO rule) throws Exception {
+        mapper.registerModule(new JavaTimeModule());
+        String json = mapper.writeValueAsString(rule);
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_URL + "/api/rules/create"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json)).build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        return mapper.readValue(response.body(),  RuleDTO.class);
+    }
+
+    public List<RuleDTO> getAllRules() throws Exception {
+        mapper.registerModule(new JavaTimeModule());
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_URL + "/api/rules/all"))
+                .GET().build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() == 200)
+            return mapper.readValue(response.body(), new TypeReference<List<RuleDTO>>() {});
+        return new ArrayList<>();
+    }
+
+    public List<RuleDTO> getRulesByUser(String userUuid) throws Exception {
+        mapper.registerModule(new JavaTimeModule());
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/api/rules/" + userUuid))
+                .GET().build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        if (response.statusCode() == 200)
+            return mapper.readValue(response.body(), new TypeReference<List<RuleDTO>>() {});
+        return new ArrayList<>();
+    }
+
+    public void deleteRule(Long ruleId) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/api/rules/delete/" + ruleId))
+                .DELETE().build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    }
 
     private void verifyRateLimit(HttpResponse<?> response) {
         try {

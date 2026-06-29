@@ -26,5 +26,6 @@ module com.irina.mindhaven.mindhavendesktop {
     opens com.irina.mindhaven.mindhavendesktop.activity to com.fasterxml.jackson.databind;
     exports com.irina.mindhaven.mindhavendesktop.ratelimit;
     opens com.irina.mindhaven.mindhavendesktop.ratelimit to javafx.fxml;
-    opens com.irina.mindhaven.mindhavendesktop.rule to com.fasterxml.jackson.databind;
+    opens com.irina.mindhaven.mindhavendesktop.rule to javafx.fxml, com.fasterxml.jackson.databind;
+    exports com.irina.mindhaven.mindhavendesktop.rule;
 }

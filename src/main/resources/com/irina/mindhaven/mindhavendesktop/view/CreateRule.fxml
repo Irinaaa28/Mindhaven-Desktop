@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.irina.mindhaven.mindhavendesktop.rule.CreateRuleController" prefWidth="450" prefHeight="500">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <Label text="Create a New Rule" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <Label fx:id="globalErrorLabel" visible="false" managed="false" style="-fx-text-fill: red; -fx-font-weight: bold;"/>
+    <VBox spacing="3">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Rule Type:" prefWidth="100"/>
+            <ComboBox fx:id="typeComboBox" prefWidth="250"/>
+        </HBox>
+    </VBox>
+
+    <VBox fx:id="categoryContainer" spacing="3">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Rule Category:" prefWidth="100"/>
+            <ComboBox fx:id="categoryComboBox" prefWidth="250"/>
+        </HBox>
+        <HBox><Label prefWidth="110"/><Label fx:id="categoryErrorLabel" visible="false" managed="false" style="-fx-text-fill: red; -fx-font-size: 11px;"/></HBox>
+    </VBox>
+
+    <VBox fx:id="valueContainer" spacing="3">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Target (App/Site):" prefWidth="100"/>
+            <TextField fx:id="valueField" prefWidth="250" promptText="youtube.com"/>
+        </HBox>
+        <HBox><Label prefWidth="110"/><Label fx:id="valueErrorLabel" visible="false" managed="false" style="-fx-text-fill: red; -fx-font-size: 11px;"/></HBox>
+    </VBox>
+
+    <VBox fx:id="timeLimitContainer" spacing="3">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Allowed Time:" prefWidth="100"/>
+            <Label text="Hours:"/>
+            <Spinner fx:id="hoursSpinner" prefWidth="60" editable="true"/>
+            <Label text="Minutes:"/>
+            <Spinner fx:id="minutesSpinner" prefWidth="70" editable="true"/>
+        </HBox>
+        <HBox><Label prefWidth="110"/><Label fx:id="timeLimitErrorLabel" visible="false" managed="false" style="-fx-text-fill: red; -fx-font-size: 11px;"/></HBox>
+    </VBox>
+
+    <VBox fx:id="timeWindowContainer" spacing="3">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Start Time:" prefWidth="100"/>
+            <Spinner fx:id="startHourSpinner" prefWidth="60"/>
+            <Label text=" : "/>
+            <Spinner fx:id="startMinuteSpinner" prefWidth="60"/>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="End Time:" prefWidth="100"/>
+            <Spinner fx:id="endHourSpinner" prefWidth="60"/>
+            <Label text=" : "/>
+            <Spinner fx:id="endMinuteSpinner" prefWidth="60"/>
+        </HBox>
+        <HBox><Label prefWidth="110"/><Label fx:id="timeWindowErrorLabel" visible="false" managed="false" style="-fx-text-fill: red; -fx-font-size: 11px;"/></HBox>
+    </VBox>
+
+    <VBox spacing="3">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Validity (Days):" prefWidth="100"/>
+            <ComboBox fx:id="expiresComboBox" prefWidth="250"/>
+        </HBox>
+    </VBox>
+
+    <VBox spacing="4" alignment="CENTER_LEFT" prefWidth="350">
+        <Label text="Rule Description:" style="-fx-font-weight: bold; -fx-text-fill: #555555;"/>
+        <Label fx:id="descriptionLabel" wrapText="true" style="-fx-text-fill: #666666; -fx-font-size: 11px;" prefWidth="350"/>
+    </VBox>
+
+    <Label fx:id="successLabel" visible="false" managed="false" style="-fx-text-fill: green; -fx-font-weight: bold;"/>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="Save Rule" onAction="#handleSaveRule" prefWidth="120" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Button text="Back" onAction="#handleBack" prefWidth="120"/>
+    </HBox>
+
+</VBox>

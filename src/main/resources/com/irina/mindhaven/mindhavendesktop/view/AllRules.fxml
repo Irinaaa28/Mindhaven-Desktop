@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<HBox spacing="15" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.irina.mindhaven.mindhavendesktop.rule.AllRulesController" prefWidth="800" prefHeight="450">
+    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+    <VBox spacing="10" prefWidth="500">
+        <Label text="All Users Rules" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <TableView fx:id="allRulesTable" prefHeight="350">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="40"/>
+                <TableColumn fx:id="userColumn" text="User UUID" prefWidth="140"/>
+                <TableColumn fx:id="typeColumn" text="Type" prefWidth="110"/>
+                <TableColumn fx:id="valueColumn" text="Target Value" prefWidth="200"/>
+            </columns>
+        </TableView>
+        <HBox spacing="10">
+            <Button text="View Selected" onAction="#handleViewDetails" prefWidth="120" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            <Button text="Back to Dashboard" onAction="#handleBack" prefWidth="150"/>
+        </HBox>
+    </VBox>
+
+    <VBox spacing="12" prefWidth="260" style="-fx-border-color: #D32F2F; -fx-border-width: 1; -fx-padding: 10; -fx-background-color: #fff9f9;">
+        <Label text="Rule Specific Details" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+        <Separator/>
+
+        <HBox fx:id="rowId" spacing="5"><Label text="Rule ID: " style="-fx-font-weight: bold;"/><Label fx:id="detailId"/></HBox>
+        <HBox fx:id="rowUserUuid" spacing="5"><Label text="User UUID: " style="-fx-font-weight: bold;"/><Label fx:id="detailUserUuid"/></HBox>
+        <HBox fx:id="rowType" spacing="5"><Label text="Type: " style="-fx-font-weight: bold;"/><Label fx:id="detailType"/></HBox>
+        <HBox fx:id="rowCategory" spacing="5"><Label text="Category: " style="-fx-font-weight: bold;"/><Label fx:id="detailCategory"/></HBox>
+        <HBox fx:id="rowValue" spacing="5"><Label text="Blocked Name: " style="-fx-font-weight: bold;"/><Label fx:id="detailValue"/></HBox>
+        <HBox fx:id="rowMaxMinutes" spacing="5"><Label text="Max Minutes: " style="-fx-font-weight: bold;"/><Label fx:id="detailMaxMinutes"/></HBox>
+        <HBox fx:id="rowTimeWindow" spacing="5"><Label text="Time Window: " style="-fx-font-weight: bold;"/><Label fx:id="detailTimeWindow"/></HBox>
+        <HBox fx:id="rowExpiresAt" spacing="5"><Label text="Expires At: " style="-fx-font-weight: bold;"/><Label fx:id="detailExpiresAt"/></HBox>
+        <HBox fx:id="rowActive" spacing="5"><Label text="Is Active: " style="-fx-font-weight: bold;"/><Label fx:id="detailActive"/></HBox>
+
+        <Separator/>
+        <Button fx:id="deleteRuleButton" text="Delete Rule (Admin Only)" onAction="#handleDeleteRule"
+                prefWidth="240" disable="true" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </VBox>
+</HBox>

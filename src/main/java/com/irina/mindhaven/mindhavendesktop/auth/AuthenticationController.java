@@ -13,14 +13,11 @@ import javafx.scene.control.*;
 import javafx.util.Duration;
 
 public class AuthenticationController {
-    @FXML
-    private TextField emailField;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private Label lockLabel;
-    @FXML
-    private Button loginButton;
+    @FXML private TextField emailField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label lockLabel;
+    @FXML private Button loginButton;
+    @FXML private Label authErrorLabel;
     private Timeline lockTimeline;
 
     private final ApiClient apiClient = MainApplication.apiClient;
@@ -29,27 +26,39 @@ public class AuthenticationController {
     private void handleAuthenticate() {
         String email = emailField.getText();
         String password = passwordField.getText();
+
+        authErrorLabel.setVisible(false);
+        authErrorLabel.setManaged(false);
         if (email.isEmpty() || password.isEmpty()) {
-            showAlert("Error", "Email and password are required");
+            authErrorLabel.setText("Email and password are required!");
+            authErrorLabel.setVisible(true);
+            authErrorLabel.setManaged(true);
             return;
         }
         try {
             boolean success = apiClient.authenticate(email, password);
             if (success) {
-                LocalSessionServer server = new LocalSessionServer();
-                server.start();
+                if (MainApplication.localSessionServer != null)
+                    MainApplication.localSessionServer.stop();
+                MainApplication.localSessionServer = new LocalSessionServer();
+                MainApplication.localSessionServer.start();
                 var user = apiClient.getCurrentUser();
                 SessionContext.setUserUuid(user.getUuid());
                 MainApplication.getActivityScheduler().start();
                 MainApplication.showDashboard();
             }
-            else
-                showAlert("Login failed", "Invalid credentials");
+            else {
+                authErrorLabel.setText("Invalid credentials!");
+                authErrorLabel.setVisible(true);
+                authErrorLabel.setManaged(true);
+            }
         } catch (AccountLockedException e) {
             startLockCountdown(e.getTtlSeconds());
         }
         catch (Exception e) {
-            showAlert("Error", e.getMessage());
+            authErrorLabel.setText("Error: " + e.getMessage());
+            authErrorLabel.setVisible(true);
+            authErrorLabel.setManaged(true);
         }
     }
 
@@ -61,14 +70,6 @@ public class AuthenticationController {
     @FXML
     private void goToForgotPassword() throws Exception {
         MainApplication.showForgotPassword();
-    }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     private void startLockCountdown(long ttlSeconds) {
